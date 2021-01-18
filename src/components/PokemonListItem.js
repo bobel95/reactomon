@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export class PokemonListItem extends Component {
 
     render() {
-        const pokemonNumber = this.props.url.match(/\/([^\/]+)\/?$/)[1];
+        const pokemonNumber = this.props.url.match(/\/([^/]+)\/?$/)[1];
         const formattedNumber = `#${pokemonNumber.padStart(3, '0')}`;
 
         return (
