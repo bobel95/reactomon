@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './logo.png';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Header = props => {
@@ -26,6 +25,13 @@ const Header = props => {
                 <Nav.Link><Link to="/types">Types</Link></Nav.Link>
                 
                 <Nav.Link><Link to="/about">About</Link></Nav.Link>
+
+                <Button variant="light" onClick={ e => {
+                    props.setTheme({ mode: 'light' });
+                }}>Light</Button>
+                <Button variant="dark" onClick={ e => {
+                    props.setTheme({ mode: 'dark' });
+                }}>Dark</Button>
             </Nav>
         </Navbar.Collapse>
         </Navbar>
