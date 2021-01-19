@@ -45,6 +45,13 @@ const PokemonDetail = props => {
             });
     }, [caughtBool]);
 
+    const formatWeight = (weight) => {
+        let weightStr = weight.toString()
+        return weightStr.slice(0, -1) + '.' + weightStr.slice(-1)
+    }
+
+    const formattedWeight = formatWeight(weight);
+
     return (
         <Card style={cardStyle}>
             <Card.Img variant="top" src={sprite} />
@@ -55,8 +62,8 @@ const PokemonDetail = props => {
                 </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
-                <ListGroupItem>Weight: {weight}</ListGroupItem>
-                <ListGroupItem>Height: {height}</ListGroupItem>
+                <ListGroupItem>Weight: {formattedWeight} kg</ListGroupItem>
+                <ListGroupItem>Height: {height * 10} cm</ListGroupItem>
             </ListGroup>
             <Button onClick={ e => {
                 setCaught(prev => [...prev, {
