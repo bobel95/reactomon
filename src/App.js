@@ -2,13 +2,14 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { Button } from 'react-bootstrap';
 import Header from './components/Header';
 import About from './components/About';
 import Types from './components/Types';
 import PokemonList from './components/PokemonList';
 import PokemonDetail from './components/PokemonDetail';
+import CaughtPokemon from './components/CaughtPokemon';
 import axios from 'axios';
+import { CaughtPokemonProvider } from './components/CaughtPokemonContext';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -36,29 +37,33 @@ const App = props => {
   }, []);
 
   return (
-    <ThemeProvider theme = {theme}>
-      <GlobalStyle />
-      <Router>
-        <div className="App">
-          <Header setTheme={setTheme}/>
-          <Route exact path="/" render={props => (
-            <React.Fragment>
-              <PokemonList pokemon={pokemon}/>
-            </React.Fragment>
-          )} />
+    <CaughtPokemonProvider>
+      <ThemeProvider theme = {theme}>
+        <GlobalStyle />
+        <Router>
+          <div className="App">
+            <Header setTheme={setTheme}/>
+            <Route exact path="/" render={props => (
+              <React.Fragment>
+                <PokemonList pokemon={pokemon}/>
+              </React.Fragment>
+            )} />
 
-          <Route path="/about" component={About}></Route>
+            <Route path="/about" component={About}></Route>
 
-          <Route exact path="/detail" render={props => (
-            <React.Fragment>
-              <PokemonDetail></PokemonDetail>
-            </React.Fragment>
-          )}></Route>
+            <Route path="/caught" component={CaughtPokemon}></Route>
 
-          <Route path="/types" component={Types}></Route>   
-        </div>
-      </Router>
-    </ThemeProvider>
+            <Route exact path="/detail" render={props => (
+              <React.Fragment>
+                <PokemonDetail></PokemonDetail>
+              </React.Fragment>
+            )}></Route>
+
+            <Route path="/types" component={Types}></Route>   
+          </div>
+        </Router>
+      </ThemeProvider>
+    </CaughtPokemonProvider>
   );
 }
 

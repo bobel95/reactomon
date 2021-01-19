@@ -26,6 +26,8 @@ const Header = props => {
                 
                 <Nav.Link><Link to="/about">About</Link></Nav.Link>
 
+                <Nav.Link><Link to="/caught">Caught Pokemon</Link></Nav.Link>
+
                 <Button variant="light" onClick={ e => {
                     props.setTheme({ mode: 'light' });
                 }}>Light</Button>

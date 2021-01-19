@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import ListGroupItem from 'react-bootstrap/ListGroupItem';
+import React, { useEffect, useState, useContext } from 'react';
+import { Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { CaughtPokemonContext } from './CaughtPokemonContext';
 import axios from 'axios';
 
 const PokemonDetail = props => {
@@ -12,17 +11,30 @@ const PokemonDetail = props => {
         return params.get('id');
     }
 
+    const isCaught = () => {
+        let res = false;
+        caught.forEach(p => {
+            if (p.name === name) {
+                res = true;
+            }
+        })
+        
+        return res;
+    }
+
+    
+    const [caught, setCaught] = useContext(CaughtPokemonContext);
     const [name, setName] = useState('');
     const [sprite, setSprite] = useState('');
     const [weight, setWeight] = useState(0);
     const [height, setHeight] = useState(0);
     const [type, setTypes] = useState([]);
+    let caughtBool = isCaught();
 
     useEffect(() => {
         const id = getIdFromParam();
         axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
             .then(res => {
-                console.log(res.data);
                 const { name, sprites: {front_default : sprite}, weight, height } = res.data;
                 const type = res.data.types[0].type.name
                 setName(name);
@@ -31,7 +43,7 @@ const PokemonDetail = props => {
                 setHeight(height);
                 setTypes(type);
             });
-    }, []);
+    }, [caughtBool]);
 
     return (
         <Card style={cardStyle}>
@@ -46,6 +58,14 @@ const PokemonDetail = props => {
                 <ListGroupItem>Weight: {weight}</ListGroupItem>
                 <ListGroupItem>Height: {height}</ListGroupItem>
             </ListGroup>
+            <Button onClick={ e => {
+                setCaught(prev => [...prev, {
+                    name: name,
+                    sprite: sprite
+                }])
+                console.log(typeof caught);
+            }} disabled={isCaught()}>{isCaught() ? 'Already Caught!' : 'Catch!'}</Button>
+
         </Card>
     )
 }
