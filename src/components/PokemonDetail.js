@@ -54,11 +54,11 @@ const PokemonDetail = props => {
 
     return (
         <Card style={cardStyle}>
-            <Card.Img variant="top" src={sprite} />
+            <Card.Img variant="top" src={sprite} style={{width: '350px', margin:'0 auto'}} />
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>
-                {type}-type pokemon
+                ({type}-type pokemon)
                 </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">

@@ -11,7 +11,7 @@ const CaughtPokemon = (props) => {
         const { name, sprite } = p;
         return (
             <Card>
-                <Card.Img variant="top" src={sprite} />
+                <Card.Img variant="top" src={sprite} style={{width: '350px', margin:'0 auto'}} />
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                 </Card.Body>
